@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { format, setMonth, setYear } from 'date-fns';
-import { Theme } from './theme';
 
 const Container = styled.div`
   position: absolute;

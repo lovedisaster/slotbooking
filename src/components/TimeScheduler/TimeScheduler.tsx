@@ -27,8 +27,6 @@ export const TimeScheduler: React.FC = () => {
   const {
     selectedDate,
     setSelectedDate,
-    selectedTimeSlot,
-    setSelectedTimeSlot,
     availableTimeSlots,
     addBooking,
   } = useTimeScheduler();
@@ -65,7 +63,6 @@ export const TimeScheduler: React.FC = () => {
       selectedSlots.forEach(slot => {
         addBooking(selectedDate, slot.startTime, slot.endTime);
       });
-      setSelectedTimeSlot(selectedSlots[selectedSlots.length - 1]);
       setIsModalOpen(false);
       setSelectedSlots([]);
     }

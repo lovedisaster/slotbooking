@@ -1,6 +1,19 @@
-import 'styled-components';
-import { ThemeType } from './components/CalendarPicker/types';
+import '@emotion/react';
+import { Theme as MuiTheme } from '@mui/material/styles';
 
-declare module 'styled-components' {
-  export interface DefaultTheme extends ThemeType {}
+// Extend the MUI theme type with custom properties
+export interface Theme extends MuiTheme {
+  calendar: {
+    fontSize: string;
+    fontWeight: string | number;
+  };
+}
+
+declare module '@emotion/react' {
+  export interface Theme extends MuiTheme {
+    calendar: {
+      fontSize: string;
+      fontWeight: string | number;
+    };
+  }
 } 

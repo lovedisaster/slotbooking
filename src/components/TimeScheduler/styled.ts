@@ -12,6 +12,9 @@ export const StyledPaper = styled(Paper)`
   overflow: hidden;
   width: 300px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const TimeSlotGrid = styled.div`

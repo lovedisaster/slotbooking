@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Theme } from './theme';
 import {
   format,
   isAfter,

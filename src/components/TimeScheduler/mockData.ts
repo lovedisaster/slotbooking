@@ -94,7 +94,7 @@ export interface TimeSlot {
     const slots: TimeSlot[] = [];
     const { operatingHours, unavailableRanges, bookings } = schedule;
     
-    let currentTime = new Date(`2024-01-01 ${operatingHours.start}`);
+    const currentTime = new Date(`2024-01-01 ${operatingHours.start}`);
     const endTime = new Date(`2024-01-01 ${operatingHours.end}`);
   
     while (currentTime < endTime) {

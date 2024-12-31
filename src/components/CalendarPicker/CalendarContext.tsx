@@ -8,7 +8,7 @@ export const CalendarContext = createContext<CalendarContextType>({
   availableDates: [],
   minDate: undefined,
   maxDate: undefined,
-  onSelect: () => {},
-  setCurrentMonth: () => {},
+  onSelect: (date: Date) => { /* noop */ },
+  setCurrentMonth: (date: Date) => { /* noop */ }
 }); 
 

@@ -1,7 +1,7 @@
 {
-  "name": "slotbooking.js",
-  "version": "1.0.0",
-  "description": "A modern React time slot booking component with calendar picker",
+  "name": "@yuefengzhang/slotbooking",
+  "version": "1.0.2",
+  "description": "A React time slot booking component library with a calendar picker and scheduler",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -9,10 +9,9 @@
   "scripts": {
     "dev": "vite dev",
     "build": "rollup -c",
-    "test": "jest",
+    "test": "node --experimental-vm-modules $(which jest)",
     "lint": "eslint src --ext .ts,.tsx",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test && yarn lint",
     "clean": "rimraf dist"
   },
   "keywords": [
@@ -20,20 +19,21 @@
     "calendar",
     "booking",
     "scheduler",
-    "timeslot",
-    "appointment",
+    "time-slots",
+    "material-ui",
+    "date-picker",
     "typescript"
   ],
-  "author": "Your Name",
+  "author": "Yuefeng Zhang",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@mui/material": "^5.0.0",
     "@mui/x-date-pickers": "^6.0.0",
-    "date-fns": "^2.30.0"
+    "date-fns": "^2.30.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -79,9 +79,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/slotbooking.js"
-  },
-  "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
+    "url": "https://github.com/yuefengzhang/slotbooking.js"
   }
 }

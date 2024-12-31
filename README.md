@@ -1,64 +1,31 @@
-# slotbooking.js
+# SlotBooking.js
 
-A modern React time slot booking component with a beautiful dark theme calendar picker.
+A modern React time slot booking component library with a calendar picker and scheduler. Built with Material-UI and Emotion for a sleek, customizable UI.
 
 ## Features
 
-- 📅 Beautiful dark theme calendar
-- ⏰ Time slot selection with customizable intervals
-- 🎨 Material-UI based styling
-- 🌙 Dark mode by default
+- 📅 Modern calendar picker with dark theme
+- ⏰ Time slot selection with multiple slot support
+- 🎨 Customizable themes and styles
 - 📱 Responsive design
-- 🔒 Disabled dates support
-- 🎯 TypeScript support
+- 🔄 Built-in availability management
+- 💪 TypeScript support
+- 🎯 Zero-dependency core (only peer dependencies)
 
 ## Installation
 
 ```bash
-npm install slotbooking.js
+# npm
+npm install slotbooking.js @mui/material @mui/x-date-pickers @emotion/react @emotion/styled date-fns
+
+# yarn
+yarn add slotbooking.js @mui/material @mui/x-date-pickers @emotion/react @emotion/styled date-fns
 ```
 
-or
-
-```bash
-yarn add slotbooking.js
-```
-
-## Dependencies
-
-This package requires the following peer dependencies:
-
-```json
-{
-  "react": "^18.2.0",
-  "react-dom": "^18.2.0",
-  "@emotion/react": "^11.0.0",
-  "@emotion/styled": "^11.0.0",
-  "@mui/material": "^5.0.0",
-  "@mui/x-date-pickers": "^6.0.0",
-  "date-fns": "^2.30.0"
-}
-```
-
-## Usage
+## Quick Start
 
 ```tsx
 import { TimeScheduler, TimeSchedulerProvider } from 'slotbooking.js';
-
-// Example schedule data
-const scheduleData = [
-  {
-    date: '2024-03-18',
-    operatingHours: { start: '09:00', end: '17:00' },
-    unavailableRanges: [
-      { start: '12:00', end: '13:00' }, // Lunch break
-    ],
-    bookings: [
-      { start: '14:00', end: '15:00' }, // Existing booking
-    ],
-  },
-  // ... more days
-];
 
 function App() {
   return (
@@ -69,34 +36,125 @@ function App() {
 }
 ```
 
-## API
+## Components
+
+### TimeScheduler
+
+A complete scheduling solution with calendar and time slot selection.
+
+```tsx
+import { TimeScheduler, TimeSchedulerProvider } from 'slotbooking.js';
+
+// Example schedule data
+const scheduleData = {
+  availableTimeSlots: [
+    { startTime: '09:00', endTime: '10:00' },
+    { startTime: '10:00', endTime: '11:00' },
+    // ...
+  ],
+  bookings: [
+    { date: '2024-01-01', startTime: '09:00', endTime: '10:00' },
+    // ...
+  ]
+};
+
+function SchedulerExample() {
+  return (
+    <TimeSchedulerProvider initialScheduleData={scheduleData}>
+      <TimeScheduler />
+    </TimeSchedulerProvider>
+  );
+}
+```
+
+### CalendarPicker
+
+A standalone calendar component with customizable theme.
+
+```tsx
+import { CalendarPicker, darkTheme } from 'slotbooking.js';
+
+function CalendarExample() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  return (
+    <CalendarPicker
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      onSelect={setSelectedDate}
+      theme={darkTheme}
+      availableDates={availableDates}
+      minDate={minDate}
+      maxDate={maxDate}
+    />
+  );
+}
+```
+
+## API Reference
+
+### TimeScheduler Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| No direct props | - | All configuration is handled through the TimeSchedulerProvider |
 
 ### TimeSchedulerProvider Props
 
 | Prop | Type | Description |
 |------|------|-------------|
-| initialScheduleData | DaySchedule[] | Array of schedule data for each day |
-| children | React.ReactNode | Child components |
+| initialScheduleData | ScheduleData | Initial schedule configuration including available slots and bookings |
+| children | ReactNode | Child components |
 
-### DaySchedule Interface
+### CalendarPicker Props
 
-```typescript
-interface DaySchedule {
-  date: string;                    // Format: 'YYYY-MM-DD'
-  operatingHours: {
-    start: string;                 // Format: 'HH:mm'
-    end: string;                   // Format: 'HH:mm'
-  };
-  unavailableRanges: TimeRange[];  // Blocked time ranges
-  bookings: TimeRange[];           // Existing bookings
-}
+| Prop | Type | Description |
+|------|------|-------------|
+| isOpen | boolean | Controls the visibility of the calendar |
+| onClose | () => void | Callback when the calendar is closed |
+| onSelect | (date: Date) => void | Callback when a date is selected |
+| theme | Theme | Theme configuration object |
+| availableDates | Date[] | Array of available dates |
+| minDate | Date | Minimum selectable date |
+| maxDate | Date | Maximum selectable date |
 
-interface TimeRange {
-  start: string;                   // Format: 'HH:mm'
-  end: string;                     // Format: 'HH:mm'
-}
+## Customization
+
+### Theming
+
+The library comes with a built-in dark theme, but you can customize it:
+
+```tsx
+const customTheme = {
+  colors: {
+    primary: '#00C853',
+    secondary: '#757575',
+    text: '#FFFFFF',
+    // ... other color options
+  },
+  // ... other theme options
+};
+
+<CalendarPicker theme={customTheme} />
+```
+
+## Development
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development server
+yarn dev
+
+# Run tests
+yarn test
+
+# Build library
+yarn build
 ```
 
 ## License
 
-MIT © [Your Name] 
+MIT © Yuefeng Zhang 
