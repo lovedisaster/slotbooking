@@ -1,0 +1,87 @@
+{
+  "name": "slotbooking.js",
+  "version": "1.0.0",
+  "description": "A modern React time slot booking component with calendar picker",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "rollup -c",
+    "test": "jest",
+    "lint": "eslint src --ext .ts,.tsx",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test && yarn lint",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "react",
+    "calendar",
+    "booking",
+    "scheduler",
+    "timeslot",
+    "appointment",
+    "typescript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@mui/material": "^5.0.0",
+    "@mui/x-date-pickers": "^6.0.0",
+    "date-fns": "^2.30.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/material": "^5.15.0",
+    "@mui/system": "^5.15.0",
+    "@mui/x-date-pickers": "^6.18.0",
+    "date-fns": "^2.30.0",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "@testing-library/jest-dom": "^6.1.0",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.29.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.0.4",
+    "vite": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/slotbooking.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  }
+}
