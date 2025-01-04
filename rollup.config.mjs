@@ -15,27 +15,48 @@ export default [
         file: packageJson.main,
         format: 'cjs',
         sourcemap: true,
+        exports: 'named',
+        interop: 'auto'
       },
       {
         file: packageJson.module,
         format: 'esm',
         sourcemap: true,
+        exports: 'named'
       },
     ],
     plugins: [
       peerDepsExternal(),
-      resolve(),
-      commonjs(),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        preferBuiltins: true
+      }),
+      commonjs({
+        include: /node_modules/
+      }),
       typescript({
         tsconfig: './tsconfig.json',
         exclude: ['**/__tests__/**', '**/*.test.ts', '**/*.test.tsx'],
+        declaration: true
       }),
     ],
-    external: ['react', 'react-dom', '@emotion/react', '@emotion/styled', '@mui/material', '@mui/x-date-pickers', 'date-fns'],
+    external: [
+      'react', 
+      'react-dom', 
+      '@emotion/react', 
+      '@emotion/styled', 
+      '@mui/material', 
+      '@mui/x-date-pickers', 
+      '@mui/icons-material',
+      '@mui/system',
+      'date-fns',
+      /^@mui\/.*/,
+    ],
   },
   {
     input: 'src/components/TimeScheduler/index.ts',
     output: [{ file: packageJson.types, format: 'es' }],
     plugins: [dts()],
+    external: [/\.css$/],
   },
 ]; 

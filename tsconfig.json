@@ -8,6 +8,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "strict": true,
     "jsx": "react",
@@ -16,7 +17,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowJs": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "noEmit": false,
+    "baseUrl": ".",
+    "paths": {
+      "@mui/*": ["node_modules/@mui/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]

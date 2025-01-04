@@ -1,31 +1,67 @@
-# SlotBooking.js
+# @yuefengzhang/slotbooking
 
-A modern React time slot booking component library with a calendar picker and scheduler. Built with Material-UI and Emotion for a sleek, customizable UI.
+A modern React time slot booking component library with calendar picker and scheduler. Built with Material-UI and Emotion.
 
 ## Features
 
-- 📅 Modern calendar picker with dark theme
-- ⏰ Time slot selection with multiple slot support
-- 🎨 Customizable themes and styles
+- 📅 Modern calendar picker with dark theme support
+- ⏰ Flexible time slot selection
+- 🎨 Fully customizable themes
 - 📱 Responsive design
 - 🔄 Built-in availability management
 - 💪 TypeScript support
-- 🎯 Zero-dependency core (only peer dependencies)
 
 ## Installation
 
+First, install the package:
 ```bash
-# npm
-npm install slotbooking.js @mui/material @mui/x-date-pickers @emotion/react @emotion/styled date-fns
-
-# yarn
-yarn add slotbooking.js @mui/material @mui/x-date-pickers @emotion/react @emotion/styled date-fns
+npm install @yuefengzhang/slotbooking
 ```
 
-## Quick Start
+This library uses Material-UI and other dependencies. If you don't have them in your project yet, install the required peer dependencies:
+
+```bash
+npm install @mui/material @mui/x-date-pickers @mui/icons-material @mui/system @emotion/react @emotion/styled date-fns
+```
+
+If you already have some of these dependencies in your project, you don't need to install them again. The library is compatible with the following versions:
+
+```json
+{
+  "@emotion/react": "^11.0.0",
+  "@emotion/styled": "^11.0.0",
+  "@mui/material": "^5.0.0",
+  "@mui/x-date-pickers": "^6.0.0",
+  "@mui/icons-material": "^5.0.0",
+  "@mui/system": "^5.0.0",
+  "date-fns": "^2.30.0"
+}
+```
+
+Note: The library requires `react` and `react-dom` version 18 or higher.
+
+## Usage
+
+### TimeScheduler
 
 ```tsx
-import { TimeScheduler, TimeSchedulerProvider } from 'slotbooking.js';
+import { TimeScheduler, TimeSchedulerProvider } from '@yuefengzhang/slotbooking';
+
+const scheduleData = [
+  {
+    date: '2024-03-18',
+    operatingHours: {
+      start: '09:00',
+      end: '17:00'
+    },
+    unavailableRanges: [
+      { start: '12:00', end: '13:00' } // Lunch break
+    ],
+    bookings: [
+      { start: '14:00', end: '15:00' } // Existing booking
+    ]
+  }
+];
 
 function App() {
   return (
@@ -36,45 +72,12 @@ function App() {
 }
 ```
 
-## Components
-
-### TimeScheduler
-
-A complete scheduling solution with calendar and time slot selection.
-
-```tsx
-import { TimeScheduler, TimeSchedulerProvider } from 'slotbooking.js';
-
-// Example schedule data
-const scheduleData = {
-  availableTimeSlots: [
-    { startTime: '09:00', endTime: '10:00' },
-    { startTime: '10:00', endTime: '11:00' },
-    // ...
-  ],
-  bookings: [
-    { date: '2024-01-01', startTime: '09:00', endTime: '10:00' },
-    // ...
-  ]
-};
-
-function SchedulerExample() {
-  return (
-    <TimeSchedulerProvider initialScheduleData={scheduleData}>
-      <TimeScheduler />
-    </TimeSchedulerProvider>
-  );
-}
-```
-
 ### CalendarPicker
 
-A standalone calendar component with customizable theme.
-
 ```tsx
-import { CalendarPicker, darkTheme } from 'slotbooking.js';
+import { CalendarPicker, darkTheme } from '@yuefengzhang/slotbooking';
 
-function CalendarExample() {
+function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -94,65 +97,58 @@ function CalendarExample() {
 
 ## API Reference
 
-### TimeScheduler Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| No direct props | - | All configuration is handled through the TimeSchedulerProvider |
-
 ### TimeSchedulerProvider Props
 
 | Prop | Type | Description |
 |------|------|-------------|
-| initialScheduleData | ScheduleData | Initial schedule configuration including available slots and bookings |
+| initialScheduleData | DaySchedule[] | Schedule configuration with available slots and bookings |
 | children | ReactNode | Child components |
 
 ### CalendarPicker Props
 
 | Prop | Type | Description |
 |------|------|-------------|
-| isOpen | boolean | Controls the visibility of the calendar |
-| onClose | () => void | Callback when the calendar is closed |
-| onSelect | (date: Date) => void | Callback when a date is selected |
-| theme | Theme | Theme configuration object |
+| isOpen | boolean | Controls calendar visibility |
+| onClose | () => void | Called when calendar is closed |
+| onSelect | (date: Date) => void | Called when date is selected |
+| theme | Theme | Theme configuration |
 | availableDates | Date[] | Array of available dates |
 | minDate | Date | Minimum selectable date |
 | maxDate | Date | Maximum selectable date |
 
 ## Customization
 
-### Theming
-
-The library comes with a built-in dark theme, but you can customize it:
+### Theme Structure
 
 ```tsx
-const customTheme = {
+const theme = {
   colors: {
     primary: '#00C853',
+    primaryLight: '#4CD787',
+    primaryDark: '#27AE60',
     secondary: '#757575',
     text: '#FFFFFF',
-    // ... other color options
+    disabled: '#666666',
+    weekend: '#BBBBBB',
+    background: '#424242',
+    headerBackground: '#00C853',
+    selectedBackground: '#00C853',
+    hoveredBackground: '#00E676'
   },
-  // ... other theme options
+  borderRadius: '4px',
+  fontSize: {
+    small: '12px',
+    medium: '14px',
+    large: '16px'
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    calendar: {
+      fontSize: '14px',
+      fontWeight: '400'
+    }
+  }
 };
-
-<CalendarPicker theme={customTheme} />
-```
-
-## Development
-
-```bash
-# Install dependencies
-yarn install
-
-# Start development server
-yarn dev
-
-# Run tests
-yarn test
-
-# Build library
-yarn build
 ```
 
 ## License
