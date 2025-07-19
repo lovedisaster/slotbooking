@@ -6,11 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { ThemeProvider } from "styled-components";
+import { Provider } from 'jotai';
 
 import type { Route } from "./+types/root";
-import { theme } from "./styles/theme";
-import { GlobalStyles } from "./styles/globalStyles";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,7 +19,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
 
@@ -35,10 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          {children}
-        </ThemeProvider>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -47,7 +42,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Provider>
+      <Outlet />
+    </Provider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

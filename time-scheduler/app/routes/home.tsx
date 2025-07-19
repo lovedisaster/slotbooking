@@ -1,43 +1,48 @@
 import type { Route } from "./+types/home";
 import { Header } from "../components/layout/Header";
 import { Button } from "../components/ui/Button";
-import styled from "styled-components";
 
-const HomeContainer = styled.div`
-  padding-top: 64px;
-  min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background.secondary};
-`;
+const homeContainerStyles = {
+  paddingTop: '64px',
+  minHeight: '100vh',
+  backgroundColor: '#f9fafb',
+};
 
-const HeroSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: ${({ theme }) => `${theme.spacing[20]} ${theme.spacing[6]}`};
-`;
+const heroSectionStyles = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center' as const,
+  padding: '5rem 1.5rem',
+};
 
-const Title = styled.h1`
-  font-size: ${({ theme }) => theme.typography.fontSize['5xl']};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text.primary};
-  margin-bottom: ${({ theme }) => theme.spacing[6]};
-`;
+const titleStyles = {
+  fontSize: '3rem',
+  fontWeight: 800,
+  color: '#111827',
+  marginBottom: '1.5rem',
+  fontFamily: '"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  letterSpacing: '-0.025em',
+  lineHeight: 1.1,
+};
 
-const Subtitle = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  color: ${({ theme }) => theme.colors.text.secondary};
-  margin-bottom: ${({ theme }) => theme.spacing[8]};
-  max-width: 600px;
-`;
+const subtitleStyles = {
+  fontSize: '1.25rem',
+  color: '#4b5563',
+  marginBottom: '2rem',
+  maxWidth: '600px',
+  fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  lineHeight: 1.6,
+  fontWeight: 400,
+};
 
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[4]};
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+const buttonGroupStyles = {
+  display: 'flex',
+  gap: '1rem',
+  flexWrap: 'wrap' as const,
+  justifyContent: 'center',
+};
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -50,24 +55,24 @@ export default function Home() {
   return (
     <>
       <Header />
-      <HomeContainer>
-        <HeroSection>
-          <Title>School Time Scheduler</Title>
-          <Subtitle>
+      <div style={homeContainerStyles}>
+        <section style={heroSectionStyles}>
+          <h1 style={titleStyles}>School Time Scheduler</h1>
+          <p style={subtitleStyles}>
             A comprehensive scheduling system for schools that allows administrators 
             to manage class schedules, teachers, classrooms, and students with 
             role-based access control.
-          </Subtitle>
-          <ButtonGroup>
+          </p>
+          <div style={buttonGroupStyles}>
             <Button variant="primary" size="lg">
               Get Started
             </Button>
             <Button variant="outline" size="lg">
               Learn More
             </Button>
-          </ButtonGroup>
-        </HeroSection>
-      </HomeContainer>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
