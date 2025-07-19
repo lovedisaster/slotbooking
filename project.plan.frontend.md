@@ -10,10 +10,48 @@ Frontend implementation of a school time scheduling system using React Router 7,
 - **Framework**: React 19 with TypeScript
 - **Router**: React Router 7 (Data Router)
 - **State Management**: Jotai
-- **Styling**: Tailwind CSS + Headless UI
+- **Styling**: Styled Components + Radix UI
 - **Forms**: React Hook Form + Zod validation
 - **HTTP Client**: TanStack Query (for future API integration)
 - **Testing**: Vitest + React Testing Library
+
+### Styling Options Considered
+
+#### 1. **Styled Components + Radix UI** ✅ (Selected)
+- **Styled Components**: CSS-in-JS with dynamic styling, theme support, and component-based approach
+- **Radix UI**: Unstyled, accessible components that work perfectly with styled-components
+- **Benefits**: 
+  - Full CSS-in-JS control with dynamic theming
+  - Excellent accessibility out of the box
+  - TypeScript support
+  - Component composition and reusability
+  - No external CSS dependencies
+
+#### 2. **Tailwind CSS + Headless UI**
+- **Tailwind**: Utility-first CSS framework
+- **Headless UI**: Unstyled, accessible components
+- **Benefits**: Rapid development, consistent design system
+- **Drawbacks**: Larger bundle size, less dynamic styling control
+
+#### 3. **Emotion + Radix UI**
+- **Emotion**: CSS-in-JS library similar to styled-components
+- **Benefits**: Smaller bundle size, good performance
+- **Drawbacks**: Less mature ecosystem than styled-components
+
+#### 4. **CSS Modules + Radix UI**
+- **CSS Modules**: Scoped CSS with local class names
+- **Benefits**: No runtime overhead, familiar CSS syntax
+- **Drawbacks**: Less dynamic styling capabilities
+
+#### 5. **Mantine**
+- **Full-featured UI library** with built-in components
+- **Benefits**: Complete solution, great documentation
+- **Drawbacks**: Less customization, larger bundle size
+
+#### 6. **Chakra UI**
+- **Component library** with built-in styling system
+- **Benefits**: Excellent accessibility, good TypeScript support
+- **Drawbacks**: Less CSS-in-JS control, opinionated design
 
 ### Development Tools
 - **Build Tool**: Vite
@@ -22,6 +60,105 @@ Frontend implementation of a school time scheduling system using React Router 7,
 - **Mock Data**: MSW (Mock Service Worker) for API simulation
 
 ## Application Architecture
+
+### Styled Components + Radix UI Architecture
+
+#### Component Structure with Styled Components
+```
+src/
+├── components/
+│   ├── ui/                    # Reusable UI components
+│   │   ├── Button/
+│   │   │   ├── Button.tsx
+│   │   │   └── Button.styles.ts
+│   │   ├── Input/
+│   │   │   ├── Input.tsx
+│   │   │   └── Input.styles.ts
+│   │   ├── Modal/
+│   │   │   ├── Modal.tsx
+│   │   │   └── Modal.styles.ts
+│   │   ├── Table/
+│   │   │   ├── Table.tsx
+│   │   │   └── Table.styles.ts
+│   │   └── Calendar/
+│   │       ├── Calendar.tsx
+│   │       └── Calendar.styles.ts
+│   ├── layout/               # Layout components
+│   │   ├── Header/
+│   │   │   ├── Header.tsx
+│   │   │   └── Header.styles.ts
+│   │   ├── Sidebar/
+│   │   │   ├── Sidebar.tsx
+│   │   │   └── Sidebar.styles.ts
+│   │   └── Dashboard/
+│   │       ├── Dashboard.tsx
+│   │       └── Dashboard.styles.ts
+│   ├── scheduling/           # Scheduling specific components
+│   │   ├── ScheduleGrid/
+│   │   │   ├── ScheduleGrid.tsx
+│   │   │   └── ScheduleGrid.styles.ts
+│   │   ├── ClassCard/
+│   │   │   ├── ClassCard.tsx
+│   │   │   └── ClassCard.styles.ts
+│   │   ├── TimeSlot/
+│   │   │   ├── TimeSlot.tsx
+│   │   │   └── TimeSlot.styles.ts
+│   │   └── ConflictAlert/
+│   │       ├── ConflictAlert.tsx
+│   │       └── ConflictAlert.styles.ts
+│   ├── groups/              # Class group components
+│   │   ├── GroupManager/
+│   │   │   ├── GroupManager.tsx
+│   │   │   └── GroupManager.styles.ts
+│   │   ├── GroupCard/
+│   │   │   ├── GroupCard.tsx
+│   │   │   └── GroupCard.styles.ts
+│   │   ├── GroupFilter/
+│   │   │   ├── GroupFilter.tsx
+│   │   │   └── GroupFilter.styles.ts
+│   │   └── MergedSchedule/
+│   │       ├── MergedSchedule.tsx
+│   │       └── MergedSchedule.styles.ts
+│   └── forms/               # Form components
+│       ├── ClassForm/
+│       │   ├── ClassForm.tsx
+│       │   └── ClassForm.styles.ts
+│       ├── GroupForm/
+│       │   ├── GroupForm.tsx
+│       │   └── GroupForm.styles.ts
+│       ├── ScheduleForm/
+│       │   ├── ScheduleForm.tsx
+│       │   └── ScheduleForm.styles.ts
+│       └── EnrollmentForm/
+│           ├── EnrollmentForm.tsx
+│           └── EnrollmentForm.styles.ts
+├── pages/                   # Route pages
+│   ├── admin/
+│   ├── teacher/
+│   ├── student/
+│   └── parent/
+├── hooks/                   # Custom hooks
+├── services/               # API services
+├── stores/                 # State management
+├── styles/                 # Global styles and theme
+│   ├── theme.ts
+│   ├── globalStyles.ts
+│   └── styled.d.ts
+└── types/                  # TypeScript types
+```
+
+#### Styled Components Benefits
+- **Component-based styling**: Each component has its own styled file
+- **Dynamic theming**: Easy theme switching and customization
+- **TypeScript integration**: Full type safety for props and themes
+- **Performance**: CSS-in-JS with optimized rendering
+- **Maintainability**: Scoped styles prevent conflicts
+
+#### Radix UI Integration
+- **Unstyled components**: Radix provides accessible, unstyled components
+- **Styled wrapper pattern**: Wrap Radix components with styled-components
+- **Accessibility**: Built-in ARIA attributes and keyboard navigation
+- **Composition**: Easy to compose complex components
 
 ### Route Structure (React Router 7)
 
@@ -437,7 +574,7 @@ const mockClasses = [
    - Configure React 19 with TypeScript
    - Set up React Router 7 (Data Router)
    - Set up Jotai for state management
-   - Configure Tailwind CSS and UI components
+   - Configure Styled Components and Radix UI
    - Set up development environment and tooling
 
 2. **Core Components**
