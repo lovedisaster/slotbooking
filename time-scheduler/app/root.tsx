@@ -6,9 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { ThemeProvider } from "styled-components";
 
 import type { Route } from "./+types/root";
-import "./app.css";
+import { theme } from "./styles/theme";
+import { GlobalStyles } from "./styles/globalStyles";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,7 +35,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          {children}
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -62,11 +67,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main style={{ paddingTop: '4rem', padding: '1rem', maxWidth: '1200px', margin: '0 auto' }}>
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre style={{ width: '100%', padding: '1rem', overflowX: 'auto' }}>
           <code>{stack}</code>
         </pre>
       )}
