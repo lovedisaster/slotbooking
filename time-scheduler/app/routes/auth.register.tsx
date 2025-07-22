@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { useAtom } from 'jotai';
+import { registerAtom } from '../stores/authStore';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Select, type SelectOption } from '../components/ui/Select';
@@ -7,6 +9,7 @@ import { Card, CardBody } from '../components/ui/Card';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const [, register] = useAtom(registerAtom);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -75,11 +78,12 @@ export default function RegisterPage() {
     setIsLoading(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock registration - in real app, this would be an API call
-      console.log('Registration successful:', formData);
+      // Use the register atom (doesn't store credentials)
+      await register({
+        name: formData.name,
+        email: formData.email,
+        role: formData.role,
+      });
       
       // Redirect to login page
       navigate('/auth/login');

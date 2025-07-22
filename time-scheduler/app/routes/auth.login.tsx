@@ -84,7 +84,7 @@ export default function LoginPage() {
         updatedAt: new Date(),
       };
 
-      login({ email: formData.email, password: formData.password });
+      login({ email: formData.email, password: formData.password, role: formData.role });
       
       // Redirect based on role
       switch (formData.role) {
