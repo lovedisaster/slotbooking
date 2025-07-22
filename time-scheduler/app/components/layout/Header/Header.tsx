@@ -43,7 +43,15 @@ const userInfoStyles = {
   color: '#4b5563',
 };
 
-export const Header: React.FC = () => {
+export interface HeaderProps {
+  onSidebarToggle?: () => void;
+  onMobileMenuToggle?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({
+  onSidebarToggle,
+  onMobileMenuToggle,
+}) => {
   const [user] = useAtom(userAtom);
   const [, logout] = useAtom(logoutAtom);
 
@@ -53,7 +61,49 @@ export const Header: React.FC = () => {
 
   return (
     <header style={headerStyles}>
-      <div style={logoStyles}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {onSidebarToggle && (
+          <button
+            onClick={onSidebarToggle}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '0.5rem',
+              cursor: 'pointer',
+              color: '#6b7280',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            aria-label="Toggle sidebar"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 4h14M3 10h14M3 16h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+        )}
+        
+        {onMobileMenuToggle && (
+          <button
+            onClick={onMobileMenuToggle}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '0.5rem',
+              cursor: 'pointer',
+              color: '#6b7280',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            aria-label="Open mobile menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 4h14M3 10h14M3 16h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+        )}
+        
         <Link to="/" style={logoStyles}>School Scheduler</Link>
       </div>
       
