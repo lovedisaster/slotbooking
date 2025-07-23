@@ -113,21 +113,29 @@ const getTriggerStyles = (
   };
 };
 
-const getDropdownStyles = (size: string = 'md') => {
-  const baseStyles = {
-    position: 'absolute' as const,
-    top: '100%',
+const getDropdownStyles = (size: string = 'md', position: 'top' | 'bottom' = 'bottom') => {
+  const baseStyles: React.CSSProperties = {
+    position: 'absolute',
     left: 0,
     right: 0,
     backgroundColor: '#ffffff',
     border: '1px solid #d1d5db',
     borderRadius: '0.375rem',
     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    zIndex: 1000,
+    zIndex: 9999,
     maxHeight: '200px',
-    overflowY: 'auto' as const,
-    marginTop: '0.25rem',
+    overflowY: 'auto',
+    minWidth: '100%', // Ensure dropdown is at least as wide as the trigger
   };
+
+  // Position the dropdown above or below based on available space
+  if (position === 'top') {
+    baseStyles.bottom = '100%';
+    baseStyles.marginBottom = '0.25rem';
+  } else {
+    baseStyles.top = '100%';
+    baseStyles.marginTop = '0.25rem';
+  }
 
   const sizeStyles = {
     sm: { fontSize: '0.875rem' },
@@ -192,6 +200,7 @@ export const Select: React.FC<SelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [dropdownPosition, setDropdownPosition] = useState<'top' | 'bottom'>('bottom');
   const [selectedValues, setSelectedValues] = useState<(string | number)[]>(
     multiple ? (Array.isArray(value) ? value : value ? [value] : []) : []
   );
@@ -209,9 +218,58 @@ export const Select: React.FC<SelectProps> = ({
       }
     };
 
+    const handleScroll = () => {
+      if (isOpen) {
+        const position = calculateDropdownPosition();
+        setDropdownPosition(position);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('resize', handleScroll);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [isOpen]);
+
+  // Calculate dropdown position when opening
+  const calculateDropdownPosition = () => {
+    if (!containerRef.current) return 'bottom';
+    
+    const rect = containerRef.current.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const spaceBelow = viewportHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const dropdownHeight = 200; // maxHeight from styles
+    const minSpace = 50; // minimum space needed
+    
+    // If there's not enough space below but enough space above, position above
+    if (spaceBelow < (dropdownHeight + minSpace) && spaceAbove > (dropdownHeight + minSpace)) {
+      return 'top';
+    }
+    
+    // If there's not enough space in either direction, position where there's more space
+    if (spaceBelow < minSpace && spaceAbove < minSpace) {
+      return spaceBelow > spaceAbove ? 'bottom' : 'top';
+    }
+    
+    return 'bottom';
+  };
+
+  const handleToggleDropdown = () => {
+    if (disabled) return;
+    
+    if (!isOpen) {
+      const position = calculateDropdownPosition();
+      setDropdownPosition(position);
+    }
+    
+    setIsOpen(!isOpen);
+  };
 
   const filteredOptions = searchable
     ? options.filter(option =>
@@ -261,7 +319,7 @@ export const Select: React.FC<SelectProps> = ({
 
   const selectStyles = getSelectStyles(size, selectVariant, fullWidth, disabled);
   const triggerStyles = getTriggerStyles(size, selectVariant, disabled);
-  const dropdownStyles = getDropdownStyles(size);
+  const dropdownStyles = getDropdownStyles(size, dropdownPosition);
 
   return (
     <div style={selectStyles} ref={containerRef} className={className}>
@@ -280,12 +338,12 @@ export const Select: React.FC<SelectProps> = ({
       
       <div
         style={triggerStyles}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
+        onClick={handleToggleDropdown}
         tabIndex={disabled ? -1 : 0}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            !disabled && setIsOpen(!isOpen);
+            handleToggleDropdown();
           }
         }}
       >
